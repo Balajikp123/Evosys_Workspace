@@ -1,0 +1,63 @@
+#### 31-Jan-22
+Agenda: 
+1. DDL Create User c##<> identified by <passoword>
+2. DCL -> Grant permission to the custom user
+3. Tablespace in oracle 
+4. DDL -> creating tables dept, branch, emp
+5. DQL -> Select, From, Where, Order by
+========================================================================================
+BankAccount-> accountNo->IFSC code->Amount->IMPS/RTGS/NEFT
+Authentication -> you have account ->you login to app and view balance
+Autherization  -> transfering money is allowed 
+Database -> User + role 
+Sys as sysdba-> it has all permissions 
+create,delete,modify we must have an access to drive
+Data Control Language : GRANT and Revoke
+=========================================
+-- To display currently open account in Oracle
+SELECT 
+		username, 
+		default_tablespace, 
+		profile, 
+		authentication_type
+	FROM
+		dba_users 
+	WHERE 
+		account_status = 'OPEN'
+	ORDER BY
+		username;
+-- ################################################################	
+-- 2. Grant Control
+-- ################################################################
+GRANT create session TO c##erpuser;
+GRANT create table TO  c##erpuser;
+GRANT create view TO c##erpuser;
+GRANT create any trigger TO c##erpuser;
+GRANT create any procedure TO c##erpuser;
+GRANT create sequence TO c##erpuser;
+GRANT create synonym TO c##erpuser;
+GRANT ALL PRIVILEGES TO c##erpuser;
+
+GRANT CONNECT TO c##erpuser;
+GRANT RESOURCE TO c##erpuser;
+GRANT DBA TO c##erpuser;
+-- ################################################################	
+-- 3. Connect to user c##erpuser
+-- ################################################################
+	connect c##erpuser/root
+-- ################################################################
+-- 4. Create tables in it
+<COL_NAME>  <DATA_TYPE> CONSTRAINT <NAME_OF_CONSTRAINT_OBJECT> PRIMARY KEY
+BRANCHNO	INT 		CONSTRAINT PK_BRANCH_BRANCHNO 		   PRIMARY KEY,
+
+PK_BRANCH_BRANCHNO
+pk=>PRIMARY KEY
+BRANCH=>TABLE IN WHICH YOU ARE CREATING
+BRANCHno=>ON WHICH COLUMN ITS CREATED
+-- ################################################################
+
+    CREATE TABLE BRANCH (
+		BRANCHNO	INT CONSTRAINT PK_BRANCH_BRANCHNO PRIMARY KEY,
+		BRANCHNAME  VARCHAR2(20) NOT NULL,
+		LOCATION    VARCHAR2(20) NOT NULL 
+	);
